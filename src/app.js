@@ -1,28 +1,51 @@
-// Importar módulos necesarios
-require('dotenv').config();
-const express = require('express');
-const morgan = require('morgan');
-const path = require('path');
-const session = require('express-session');
-const passport = require('passport');
-const flash = require('connect-flash');
-const MySQLStore = require('express-mysql-session')(session);
-const fileUpload = require("express-fileupload");
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
-const csrf = require('csurf');
-const cookieParser = require('cookie-parser');
-const compression = require('compression');
-const winston = require('winston');
-const fs = require('fs');
-const crypto = require('crypto');
-const hpp = require('hpp');
-const toobusy = require('toobusy-js');
-const cors = require('cors');
+import dotenv from 'dotenv';
+import express  from 'express';
+import morgan  from 'morgan';
+import path  from 'path';
+import session  from 'express-session';
+import passport  from 'passport';
+import flash  from 'connect-flash';
+import expressMySQLSession from 'express-mysql-session';
+import fileUpload  from "express-fileupload";
+import helmet  from 'helmet';
+import rateLimit  from 'express-rate-limit';
+import csrf  from 'csurf';
+import cookieParser  from 'cookie-parser';
+import compression  from 'compression';
+import winston  from 'winston';
+import fs  from 'fs';
+import crypto  from 'crypto';
+import hpp  from 'hpp';
+import toobusy  from 'toobusy-js';
+import cors  from 'cors';
+import './lib/passport.js';
+import { fileURLToPath } from 'url';
+import indexRouter from './router/index.js';
+import paginaRouter from './router/pagina.router.js';
+import clienteRouter from './router/cliente.router.js';
+import authRouter from './router/auth.router.js';
+import userRouter from './router/user.router.js';
+import rolRouter from './router/rol.router.js';
+import detalleRolRouter from './router/detalleRol.router.js';
+import mascotaRouter from './router/mascota.router.js';
+import servicioRouter from './router/servicio.router.js';
+import productoRouter from './router/producto.router.js';
+import citaRouter from './router/cita.router.js';
+import propietarioRouter from './router/propietario.router.js';
+import pagoRouter from './router/pago.router.js';
+import notificacionRouter from './router/notificacion.router.js';
+import auditoriaRouter from './router/auditoria.router.js';
+import feedbackRouter from './router/feedback.router.js';
+import promocionRouter from './router/promocion.router.js';
+import reservaRouter from './router/reserva.router.js';
+
+
+dotenv.config();
 
 // Importar módulos locales
-const { MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE, MYSQLPORT } = require('./keys');
-require('./lib/passport');
+import { MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE, MYSQLPORT } from './keys.js';
+const MySQLStore = expressMySQLSession(session);
+
 
 // Crear aplicación Express
 const app = express();
@@ -41,6 +64,10 @@ app.use(cors({
 // ==================== CONFIGURACIÓN DE LOGS MEJORADA ====================
 
 // 1. Configuración de directorio de logs
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Crear carpeta de logs si no existe
 const logDir = path.join(__dirname, 'logs');
 if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
@@ -247,24 +274,24 @@ app.use((req, res, next) => {
 
 // ==================== RUTAS API ====================
 // Importar y configurar rutas como API
-app.use(require('./router/index'))
-app.use('/pagina', require('./router/pagina.router'))
-app.use('/cliente', require('./router/cliente.router'));
-app.use('/auth', require('./router/auth.router'));
-app.use('/user', require('./router/user.router'));
-app.use('/rol', require('./router/rol.router'));
-app.use('/detalle-rol', require('./router/detalleRol.router')); // NUEVO
-app.use('/mascota', require('./router/mascota.router'));
-app.use('/servicio', require('./router/servicio.router'));
-app.use('/producto', require('./router/producto.router'));
-app.use('/cita', require('./router/cita.router'));
-app.use('/propietario', require('./router/propietario.router'));
-app.use('/pago', require('./router/pago.router')); // NUEVO
-app.use('/notificacion', require('./router/notificacion.router')); // NUEVO
-app.use('/auditoria', require('./router/auditoria.router')); // NUEVO
-app.use('/feedback', require('./router/feedback.router')); // NUEVO
-app.use('/promocion', require('./router/promocion.router')); // NUEVO
-app.use('/reserva', require('./router/reserva.router')); // NUEVO
+app.use(indexRouter);
+app.use('/pagina', paginaRouter);
+app.use('/cliente', clienteRouter);
+app.use('/auth.js', authRouter);
+app.use('/user', userRouter);
+app.use('/rol', rolRouter);
+app.use('/detalle-rol', detalleRolRouter);
+app.use('/mascota', mascotaRouter);
+app.use('/servicio', servicioRouter);
+app.use('/producto', productoRouter);
+app.use('/cita', citaRouter);
+app.use('/propietario', propietarioRouter);
+app.use('/pago', pagoRouter);
+app.use('/notificacion', notificacionRouter);
+app.use('/auditoria', auditoriaRouter);
+app.use('/feedback', feedbackRouter);
+app.use('/promocion', promocionRouter);
+app.use('/reserva', reservaRouter);
 
 // Configurar variables globales
 app.use((req, res, next) => {
@@ -310,4 +337,4 @@ app.use((req, res, next) => {
 });
 
 // Exportar la aplicación
-module.exports = app;
+export default app;

@@ -1,9 +1,9 @@
-const passport = require('passport');
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { validationResult } = require('express-validator');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
-const bcrypt = require('bcrypt');
+import passport from 'passport';
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { validationResult } from 'express-validator';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
+import bcrypt from 'bcrypt';
 
 const authCtl = {};
 
@@ -54,7 +54,7 @@ const buscarUsuarioPorCredenciales = async (identifier) => {
 };
 
 // Register endpoint
-authCtl.register = async (req, res, next) => {
+export const register = async (req, res, next) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -118,7 +118,7 @@ authCtl.register = async (req, res, next) => {
 };
 
 // Login endpoint
-authCtl.login = async (req, res, next) => {
+export const login = async (req, res, next) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -169,7 +169,7 @@ authCtl.login = async (req, res, next) => {
 };
 
 // Logout endpoint
-authCtl.logout = (req, res) => {
+export const logout = (req, res) => {
     req.logout((err) => {
         if (err) {
             return res.apiError('Error al cerrar sesión', 500);
@@ -185,7 +185,7 @@ authCtl.logout = (req, res) => {
 };
 
 // Get current user
-authCtl.getProfile = (req, res) => {
+export const getProfile = (req, res) => {
     if (!req.isAuthenticated()) {
         return res.apiError('No autenticado', 401);
     }
@@ -196,7 +196,7 @@ authCtl.getProfile = (req, res) => {
 };
 
 // Validar usuario por credenciales (endpoint adicional para testing)
-authCtl.validarCredenciales = async (req, res) => {
+export const validarCredenciales = async (req, res) => {
     try {
         const { identifier } = req.body;
         
@@ -223,4 +223,3 @@ authCtl.validarCredenciales = async (req, res) => {
     }
 };
 
-module.exports = authCtl;

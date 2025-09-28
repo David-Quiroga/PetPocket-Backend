@@ -1,7 +1,6 @@
-const detalleRolCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -14,7 +13,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todas las relaciones usuario-rol activas
-detalleRolCtl.mostrarRelaciones = async (req, res) => {
+export const mostrarRelaciones = async (req, res) => {
     try {
         const [listaRelaciones] = await sql.promise().query(`
             SELECT dr.*, u.nameUsers, u.emailUser, u.userName, r.nameRol, r.descriptionRol
@@ -42,7 +41,7 @@ detalleRolCtl.mostrarRelaciones = async (req, res) => {
 };
 
 // Obtener roles de un usuario específico
-detalleRolCtl.obtenerRolesUsuario = async (req, res) => {
+export const obtenerRolesUsuario = async (req, res) => {
     try {
         const { usuarioId } = req.params;
 
@@ -85,7 +84,7 @@ detalleRolCtl.obtenerRolesUsuario = async (req, res) => {
 };
 
 // Obtener usuarios con un rol específico
-detalleRolCtl.obtenerUsuariosRol = async (req, res) => {
+export const obtenerUsuariosRol = async (req, res) => {
     try {
         const { rolId } = req.params;
 
@@ -131,7 +130,7 @@ detalleRolCtl.obtenerUsuariosRol = async (req, res) => {
 };
 
 // Asignar múltiples roles a un usuario
-detalleRolCtl.asignarMultiplesRoles = async (req, res) => {
+export const asignarMultiplesRoles = async (req, res) => {
     try {
         const { usuarioId, roles } = req.body;
 
@@ -193,7 +192,7 @@ detalleRolCtl.asignarMultiplesRoles = async (req, res) => {
 };
 
 // Asignar rol a múltiples usuarios
-detalleRolCtl.asignarRolMultiplesUsuarios = async (req, res) => {
+export const asignarRolMultiplesUsuarios = async (req, res) => {
     try {
         const { rolId, usuarios } = req.body;
 
@@ -255,7 +254,7 @@ detalleRolCtl.asignarRolMultiplesUsuarios = async (req, res) => {
 };
 
 // Remover múltiples roles de un usuario
-detalleRolCtl.removerMultiplesRoles = async (req, res) => {
+export const removerMultiplesRoles = async (req, res) => {
     try {
         const { usuarioId, roles } = req.body;
 
@@ -282,7 +281,7 @@ detalleRolCtl.removerMultiplesRoles = async (req, res) => {
 };
 
 // Remover rol de múltiples usuarios
-detalleRolCtl.removerRolMultiplesUsuarios = async (req, res) => {
+export const removerRolMultiplesUsuarios = async (req, res) => {
     try {
         const { rolId, usuarios } = req.body;
 
@@ -309,7 +308,7 @@ detalleRolCtl.removerRolMultiplesUsuarios = async (req, res) => {
 };
 
 // Obtener estadísticas de relaciones usuario-rol
-detalleRolCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         // Estadísticas generales
         const [estadisticasGenerales] = await sql.promise().query(`
@@ -377,7 +376,7 @@ detalleRolCtl.obtenerEstadisticas = async (req, res) => {
 };
 
 // Validar relación usuario-rol
-detalleRolCtl.validarRelacion = async (req, res) => {
+export const validarRelacion = async (req, res) => {
     try {
         const { usuarioId, rolId } = req.params;
 
@@ -411,4 +410,3 @@ detalleRolCtl.validarRelacion = async (req, res) => {
     }
 };
 
-module.exports = detalleRolCtl;

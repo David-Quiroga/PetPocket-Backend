@@ -1,16 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarPropietarios, 
     crearPropietario, 
     actualizarPropietario,
     eliminarPropietario
-} = require('../controller/propietario.controller');
+} from '../controller/propietario.controller.js';
 
 // Middleware de autenticación (opcional)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear propietario
 const validacionCrearPropietario = [
@@ -172,4 +174,4 @@ router.put('/cambiar-estado/:idPropietario', (req, res) => {
     res.json({ message: 'Endpoint para cambiar estado de propietario' });
 });
 
-module.exports = router;
+export default router;

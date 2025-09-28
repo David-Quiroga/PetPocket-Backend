@@ -1,5 +1,34 @@
-const { Sequelize } = require("sequelize");
-const { MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE, MYSQLPORT, MYSQL_URI } = require("../keys");
+import { Sequelize } from "sequelize";
+import { MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE, MYSQLPORT, MYSQL_URI } from "../keys.js";
+
+// 📦 Modelos principales
+import usuarioModel from "../models/sql/usuario.js";
+import rolModel from "../models/sql/rol.js";
+import detalleRolModel from "../models/sql/detalleRol.js";
+import clienteModel from "../models/sql/cliente.js";
+import mascotaModel from "../models/sql/mascota.js";
+import servicioModel from "../models/sql/servicio.js";
+import citaModel from "../models/sql/cita.js";
+import propietarioModel from "../models/sql/propietario.js";
+import productoModel from "../models/sql/producto.js";
+import pagoModel from "../models/sql/pago.js";
+import notificacionModel from "../models/sql/notificacion.js";
+import auditoriaModel from "../models/sql/auditoria.js";
+import feedbackModel from "../models/sql/feedback.js";
+import promocionModel from "../models/sql/promocion.js";
+import reservaModel from "../models/sql/reserva.js";
+
+// 📦 Nuevos modelos
+import configuracionModel from "../models/sql/configuracion.js";
+import configuracionServicioModel from "../models/sql/configuracionServicio.js";
+import historialCitaModel from "../models/sql/historialCita.js";
+import historialPagoModel from "../models/sql/historialPago.js";
+import logModel from "../models/sql/log.js";
+import pageModel from "../models/sql/page.js";
+import tipoMascotaModel from "../models/sql/tipoMascota.js";
+import tipoServicioModel from "../models/sql/tipoServicio.js";
+
+
 
 let sequelize;
 
@@ -57,32 +86,6 @@ sequelize.sync(syncOptions)
         console.error('Error al sincronizar la Base de Datos:', error);
     });
 
-// Extracción de Modelos
-const usuarioModel = require('../models/sql/usuario');
-const rolModel = require('../models/sql/rol');
-const detalleRolModel = require('../models/sql/detalleRol');
-const clienteModel = require('../models/sql/cliente');
-const mascotaModel = require('../models/sql/mascota');
-const servicioModel = require('../models/sql/servicio');
-const citaModel = require('../models/sql/cita');
-const propietarioModel = require('../models/sql/propietario');
-const productoModel = require('../models/sql/producto');
-const pagoModel = require('../models/sql/pago');
-const notificacionModel = require('../models/sql/notificacion');
-const auditoriaModel = require('../models/sql/auditoria');
-const feedbackModel = require('../models/sql/feedback');
-const promocionModel = require('../models/sql/promocion');
-const reservaModel = require('../models/sql/reserva');
-
-// Nuevos modelos agregados
-const configuracionModel = require('../models/sql/configuracion');
-const configuracionServicioModel = require('../models/sql/configuracionServicio');
-const historialCitaModel = require('../models/sql/historialCita');
-const historialPagoModel = require('../models/sql/historialPago');
-const logModel = require('../models/sql/log');
-const pageModel = require('../models/sql/page');
-const tipoMascotaModel = require('../models/sql/tipoMascota');
-const tipoServicioModel = require('../models/sql/tipoServicio');
 
 // Inicializar los modelos a sincronizar
 const usuario = usuarioModel(sequelize, Sequelize);
@@ -152,7 +155,7 @@ pago.belongsTo(cita);
 
 
 // Exportar todos los modelos
-module.exports = {
+const models = {
     usuario,
     rol,
     detalleRol,
@@ -177,3 +180,5 @@ module.exports = {
     tipoMascota,
     tipoServicio
 };
+
+export default models;

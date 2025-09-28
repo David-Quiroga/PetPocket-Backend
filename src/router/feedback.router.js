@@ -1,8 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
-
-const { 
+import express from 'express';
+import { body, param } from 'express-validator';
+import { 
     mostrarFeedbacks,
     crearFeedback,
     responderFeedback,
@@ -10,7 +8,10 @@ const {
     obtenerFeedbacksPorCalificacion,
     obtenerEstadisticas,
     obtenerFeedbacksPendientes
-} = require('../controller/feedback.controller');
+} from '../controller/feedback.controller.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear feedback
 const validacionCrearFeedback = [
@@ -98,4 +99,4 @@ router.post('/crear', validacionCrearFeedback, crearFeedback);
 // Responder a un feedback
 router.put('/responder/:idFeedback', validacionResponderFeedback, responderFeedback);
 
-module.exports = router;
+export default router;

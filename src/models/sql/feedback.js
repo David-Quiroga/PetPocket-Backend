@@ -13,5 +13,5 @@
             comment: 'Tabla de Feedback'
         });
     }
-    module.exports = feedback;
+    export default feedback;
     

@@ -1,5 +1,15 @@
-const mongoose = require('mongoose');
-const { MONGODB_URI } = require('../keys');
+import mongoose from 'mongoose';
+import { MONGODB_URI } from '../keys.js';
+// 5. Exportar modelos (ajusta las rutas según tu estructura
+import clienteModel from '../models/mongo/cliente.js';
+import citaModel from '../models/mongo/cita.js';
+import mascotaModel from '../models/mongo/mascota.js';
+import feedBackModel from '../models/mongo/feedback.js';
+import pageModel from '../models/mongo/page.js';  
+import productoModel from '../models/mongo/producto.js';
+import propietarioModel from '../models/mongo/propietario.js';
+import servicioModel from '../models/mongo/servicio.js';
+import reservaModel from '../models/mongo/reserva.js';
 
 // 1. Configuración de eventos de conexión
 mongoose.connection.on('connected', () => {
@@ -48,19 +58,8 @@ process.on('SIGINT', async () => {
 // 4. Iniciar conexión inmediatamente (como solicitaste)
 connectDB();
 
-// 5. Exportar modelos (ajusta las rutas según tu estructura)
-const clienteModel = require('../models/mongo/cliente');
-const citaModel = require('../models/mongo/cita');
-const mascotaModel = require('../models/mongo/mascota');
-const feedBackModel = require('../models/mongo/feedback');
-const pageModel = require('../models/mongo/page');  
-const productoModel = require('../models/mongo/producto');
-const propietarioModel = require('../models/mongo/propietario');
-const servicioModel = require('../models/mongo/servicio');
-const reservaModel = require('../models/mongo/reserva');
 
-// 6. Exportar todos los modelos
-module.exports = {
+const modules = {
   clienteModel,
   citaModel,
   mascotaModel,
@@ -69,6 +68,9 @@ module.exports = {
   productoModel,
   propietarioModel,
   servicioModel,
-  reservaModel
-  
-};
+  reservaModel 
+}
+
+
+// 6. Exportar todos los modelos
+export default modules;

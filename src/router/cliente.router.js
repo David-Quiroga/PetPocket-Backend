@@ -1,12 +1,15 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
 
-const { 
+import { 
     mostrarClientes, 
     crearCliente, 
     actualizarCliente, 
     eliminarCliente 
-} = require('../controller/cliente.controller');
+} from '../controller/cliente.controller.js';
+
+
+const router = express.Router();
+
 
 // Obtener todos los clientes
 router.get('/lista', mostrarClientes);
@@ -20,5 +23,5 @@ router.put('/actualizar/:id', actualizarCliente);
 // Eliminar (desactivar) un cliente
 router.delete('/eliminar/:id', eliminarCliente);
 
-module.exports = router;
+export default router;
  

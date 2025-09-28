@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const mascotaSchema = new Schema({
@@ -20,4 +20,4 @@ const mascotaSchema = new Schema({
 }, { timestamps: true });             // createdAt y updatedAt automáticos
 
 const Mascota = mongoose.model('Mascota', mascotaSchema);
-module.exports = Mascota;
+export default Mascota;

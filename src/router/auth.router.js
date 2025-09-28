@@ -1,8 +1,10 @@
-const express = require('express');
+import express from 'express';
+import { body } from 'express-validator';
+import { register, login, logout, getProfile, validarCredenciales } from '../controller/auth.controller.js';
+import isLoggedIn from '../lib/auth.js';
+
+
 const router = express.Router();
-const { body } = require('express-validator');
-const { register, login, logout, getProfile, validarCredenciales } = require('../controller/auth.controller');
-const isLoggedIn = require('../lib/auth');
 
 // Validaciones mejoradas
 const registerValidation = [
@@ -81,4 +83,4 @@ router.get('/check', (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

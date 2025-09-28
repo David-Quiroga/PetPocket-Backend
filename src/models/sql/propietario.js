@@ -16,5 +16,5 @@
            comment: 'Tabla de Propietarios'
        });
    }
-   module.exports = propietario;
+   export default propietario;
    

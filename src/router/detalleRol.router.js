@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarRelaciones,
     obtenerRolesUsuario,
     obtenerUsuariosRol,
@@ -12,10 +11,14 @@ const {
     removerRolMultiplesUsuarios,
     obtenerEstadisticas,
     validarRelacion
-} = require('../controller/detalleRol.controller');
+} from '../controller/detalleRol.controller.js';
 
 // Middleware de autenticación (opcional, descomenta si lo necesitas)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
+
+
+
+const router = express.Router();
 
 // Validaciones para asignar múltiples roles
 const validacionMultiplesRoles = [
@@ -93,4 +96,4 @@ router.delete('/remover-multiples-roles', validacionMultiplesRoles, removerMulti
 // Remover un rol de múltiples usuarios
 router.delete('/remover-rol-multiples-usuarios', validacionRolMultiplesUsuarios, removerRolMultiplesUsuarios);
 
-module.exports = router;
+export default router;

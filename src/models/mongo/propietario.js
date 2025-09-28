@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const propietarioSchema = new Schema({
@@ -23,4 +23,4 @@ const propietarioSchema = new Schema({
 }, { timestamps: true });
 
 const Propietario = mongoose.model('Propietario', propietarioSchema);
-module.exports = Propietario;
+export default Propietario;

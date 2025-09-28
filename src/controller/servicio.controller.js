@@ -1,8 +1,7 @@
-const servicioCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +14,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todos los servicios activos
-servicioCtl.mostrarServicios = async (req, res) => {
+export const mostrarServicios = async (req, res) => {
     try {
         const [listaServicios] = await sql.promise().query(`
             SELECT * FROM servicios 
@@ -56,7 +55,7 @@ servicioCtl.mostrarServicios = async (req, res) => {
 };
 
 // Crear nuevo servicio
-servicioCtl.crearServicio = async (req, res) => {
+export const crearServicio = async (req, res) => {
     try {
         const { 
             nombreServicio, descripcionServicio, precioServicio,
@@ -104,7 +103,7 @@ servicioCtl.crearServicio = async (req, res) => {
 };
 
 // Actualizar servicio
-servicioCtl.actualizarServicio = async (req, res) => {
+export const actualizarServicio = async (req, res) => {
     try {
         const { idServicio } = req.params; // Suponiendo que el ID se pasa como parámetro en la URL
         const { 
@@ -155,7 +154,7 @@ servicioCtl.actualizarServicio = async (req, res) => {
 
 
 // Eliminar servicio (cambiar estado a inactivo)
-servicioCtl.eliminarServicio = async (req, res) => {
+export const eliminarServicio = async (req, res) => {
     try {
         const { idServicio } = req.params; // Suponiendo que el ID se pasa como parámetro en la URL
 
@@ -185,4 +184,3 @@ servicioCtl.eliminarServicio = async (req, res) => {
 };
 
 
-module.exports = servicioCtl;

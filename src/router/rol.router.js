@@ -1,8 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
-
-const { 
+import express from'express';
+import { body, param } from'express-validator';
+import { 
     mostrarRoles,
     crearRol,
     actualizarRol,
@@ -12,10 +10,13 @@ const {
     cambiarEstado,
     obtenerEstadisticas,
     crearRolesPorDefecto
-} = require('../controller/rol.controller');
+} from'../controller/rol.controller.js';
 
 // Middleware de autenticación (opcional, descomenta si lo necesitas)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear/actualizar rol
 const validacionRol = [
@@ -84,4 +85,4 @@ router.put('/cambiar-estado/:id', validacionId, validacionEstado, cambiarEstado)
 // Eliminar (desactivar) rol
 router.delete('/eliminar/:id', validacionId, eliminarRol);
 
-module.exports = router;
+export default router;

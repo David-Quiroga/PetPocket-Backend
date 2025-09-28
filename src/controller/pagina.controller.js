@@ -1,8 +1,7 @@
-const paginaCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar datos de forma segura
 function safeDecrypt(data) {
@@ -15,10 +14,10 @@ function safeDecrypt(data) {
 }
 
 // Mostrar página
-paginaCtl.mostrarPagina = async (req, res) => {
+export const mostrarPagina = async (req, res) => {
     try {
         const [listaPagina] = await sql.promise().query('SELECT * FROM pages');
-        
+
         if (listaPagina.length === 0) {
             return res.status(404).json({ message: 'No se encontraron páginas' });
         }
@@ -37,7 +36,7 @@ paginaCtl.mostrarPagina = async (req, res) => {
 };
 
 // Mandar página
-paginaCtl.mandarPagina = async (req, res) => {
+export const mandarPagina = async (req, res) => {
     try {
         const { namePage, description, statePage, visionPage, misionPage, celularPage, correoPagina } = req.body;
 
@@ -74,5 +73,3 @@ paginaCtl.mandarPagina = async (req, res) => {
         return res.status(500).json({ message: 'Error al enviar la página', error: error.message });
     }
 };
-
-module.exports = paginaCtl;

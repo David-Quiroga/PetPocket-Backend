@@ -18,4 +18,4 @@ const cliente = (sequelize, type) =>{
     })
 }
 
-module.exports = cliente
+export default cliente

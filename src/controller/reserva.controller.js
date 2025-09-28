@@ -1,8 +1,9 @@
-const reservaCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
+
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +16,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todas las reservas
-reservaCtl.mostrarReservas = async (req, res) => {
+export const mostrarReservas = async (req, res) => {
     try {
         const [listaReservas] = await sql.promise().query(`
             SELECT r.*, 
@@ -63,7 +64,7 @@ reservaCtl.mostrarReservas = async (req, res) => {
 };
 
 // Obtener reservas por fecha
-reservaCtl.obtenerReservasPorFecha = async (req, res) => {
+export const obtenerReservasPorFecha = async (req, res) => {
     try {
         const { fecha } = req.params;
 
@@ -113,7 +114,7 @@ reservaCtl.obtenerReservasPorFecha = async (req, res) => {
 };
 
 // Obtener estadísticas de reservas
-reservaCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticasSQL] = await sql.promise().query(`
             SELECT 
@@ -162,7 +163,7 @@ reservaCtl.obtenerEstadisticas = async (req, res) => {
 };
 
 // Eliminar reserva
-reservaCtl.eliminarReserva = async (req, res) => {
+export const eliminarReserva = async (req, res) => {
     try {
         const { idReserva } = req.params;
 
@@ -184,7 +185,7 @@ reservaCtl.eliminarReserva = async (req, res) => {
 };
 
 // Crear nueva reserva
-reservaCtl.crearReserva = async (req, res) => {
+export const crearReserva = async (req, res) => {
     try {
         const { 
             idCliente, idServicio, fechaReserva, comentariosCliente
@@ -250,7 +251,7 @@ reservaCtl.crearReserva = async (req, res) => {
 };
 
 // Actualizar reserva
-reservaCtl.actualizarReserva = async (req, res) => {
+export const actualizarReserva = async (req, res) => {
     try {
         const { idReserva } = req.params;
         const { 
@@ -292,7 +293,7 @@ reservaCtl.actualizarReserva = async (req, res) => {
 };
 
 // Confirmar reserva
-reservaCtl.confirmarReserva = async (req, res) => {
+export const confirmarReserva = async (req, res) => {
     try {
         const { idReserva } = req.params;
 
@@ -316,7 +317,7 @@ reservaCtl.confirmarReserva = async (req, res) => {
 };
 
 // Cancelar reserva
-reservaCtl.cancelarReserva = async (req, res) => {
+export const cancelarReserva = async (req, res) => {
     try {
         const { idReserva } = req.params;
         const { motivoCancelacion } = req.body;
@@ -341,7 +342,7 @@ reservaCtl.cancelarReserva = async (req, res) => {
 };
 
 // Completar reserva
-reservaCtl.completarReserva = async (req, res) => {
+export const completarReserva = async (req, res) => {
     try {
         const { idReserva } = req.params;
         const { atendidoPor, observaciones } = req.body;
@@ -367,7 +368,7 @@ reservaCtl.completarReserva = async (req, res) => {
 };
 
 // Calificar reserva
-reservaCtl.calificarReserva = async (req, res) => {
+export const calificarReserva = async (req, res) => {
     try {
         const { idReserva } = req.params;
         const { calificacion, comentarioCalificacion } = req.body;
@@ -396,7 +397,7 @@ reservaCtl.calificarReserva = async (req, res) => {
 };
 
 // Obtener reservas por cliente
-reservaCtl.obtenerReservasPorCliente = async (req, res) => {
+export const obtenerReservasPorCliente = async (req, res) => {
     try {
         const { idCliente } = req.params;
 
@@ -440,7 +441,7 @@ reservaCtl.obtenerReservasPorCliente = async (req, res) => {
 };
 
 // Obtener reservas por estado
-reservaCtl.obtenerReservasPorEstado = async (req, res) => {
+export const obtenerReservasPorEstado = async (req, res) => {
     try {
         const { estado } = req.params;
 
@@ -494,4 +495,3 @@ reservaCtl.obtenerReservasPorEstado = async (req, res) => {
     }
 };
 
-module.exports = reservaCtl;

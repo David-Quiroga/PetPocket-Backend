@@ -5,3 +5,8 @@ error.log
 
 src/logs/app.log 
 src/logs/app.log
+
+.env 
+.env.test
+.env.production
+.env.development

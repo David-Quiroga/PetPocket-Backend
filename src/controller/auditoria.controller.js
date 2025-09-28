@@ -1,7 +1,7 @@
-const auditoriaCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
+
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -14,7 +14,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todas las auditorías
-auditoriaCtl.mostrarAuditorias = async (req, res) => {
+export const mostrarAuditorias = async (req, res) => {
     try {
         const { page = 1, limit = 50, accion, usuario } = req.query;
         const offset = (page - 1) * limit;
@@ -71,7 +71,7 @@ auditoriaCtl.mostrarAuditorias = async (req, res) => {
 };
 
 // Registrar nueva auditoría
-auditoriaCtl.registrarAuditoria = async (idUsuario, accion, detalles = '') => {
+export const registrarAuditoria = async (idUsuario, accion, detalles = '') => {
     try {
         await orm.auditoria.create({
             idUsuario: idUsuario || null,
@@ -86,7 +86,7 @@ auditoriaCtl.registrarAuditoria = async (idUsuario, accion, detalles = '') => {
 };
 
 // Crear nueva auditoría (endpoint manual)
-auditoriaCtl.crearAuditoria = async (req, res) => {
+export const crearAuditoria = async (req, res) => {
     try {
         const { idUsuario, accion, detalles } = req.body;
 
@@ -117,7 +117,7 @@ auditoriaCtl.crearAuditoria = async (req, res) => {
 };
 
 // Obtener auditorías por usuario
-auditoriaCtl.obtenerAuditoriasPorUsuario = async (req, res) => {
+export const obtenerAuditoriasPorUsuario = async (req, res) => {
     try {
         const { idUsuario } = req.params;
         const { page = 1, limit = 20 } = req.query;
@@ -159,7 +159,7 @@ auditoriaCtl.obtenerAuditoriasPorUsuario = async (req, res) => {
 };
 
 // Obtener auditorías por rango de fechas
-auditoriaCtl.obtenerAuditoriasPorFecha = async (req, res) => {
+export const obtenerAuditoriasPorFecha = async (req, res) => {
     try {
         const { fechaInicio, fechaFin } = req.query;
 
@@ -189,7 +189,7 @@ auditoriaCtl.obtenerAuditoriasPorFecha = async (req, res) => {
 };
 
 // Obtener estadísticas de auditoría
-auditoriaCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticas] = await sql.promise().query(`
             SELECT 
@@ -231,7 +231,7 @@ auditoriaCtl.obtenerEstadisticas = async (req, res) => {
 };
 
 // Limpiar auditorías antiguas
-auditoriaCtl.limpiarAuditoriasAntiguas = async (req, res) => {
+export const limpiarAuditoriasAntiguas = async (req, res) => {
     try {
         const { dias = 90 } = req.body;
 
@@ -251,7 +251,7 @@ auditoriaCtl.limpiarAuditoriasAntiguas = async (req, res) => {
 };
 
 // Middleware para registrar auditorías automáticamente
-auditoriaCtl.middlewareAuditoria = (accion) => {
+export const middlewareAuditoria = (accion) => {
     return (req, res, next) => {
         const originalSend = res.send;
         
@@ -261,7 +261,7 @@ auditoriaCtl.middlewareAuditoria = (accion) => {
                 const idUsuario = req.user ? req.user.idUser : null;
                 const detalles = `${req.method} ${req.originalUrl} - ${res.statusCode}`;
                 
-                auditoriaCtl.registrarAuditoria(idUsuario, accion, detalles);
+                registrarAuditoria(idUsuario, accion, detalles);
             }
             
             originalSend.call(this, data);
@@ -271,4 +271,3 @@ auditoriaCtl.middlewareAuditoria = (accion) => {
     };
 };
 
-module.exports = auditoriaCtl;

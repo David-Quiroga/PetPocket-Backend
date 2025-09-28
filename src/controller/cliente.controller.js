@@ -1,8 +1,8 @@
 const clienteCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +15,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todos los clientes con datos desencriptados
-clienteCtl.mostrarClientes = async (req, res) => {
+export const mostrarClientes = async (req, res) => {
     try {
         const [listaClientes] = await sql.promise().query('SELECT * FROM clientes WHERE stadoCliente = "activo"');
         
@@ -50,7 +50,7 @@ clienteCtl.mostrarClientes = async (req, res) => {
 };
 
 // Crear nuevo cliente con encriptación
-clienteCtl.crearCliente = async (req, res) => {
+export const crearCliente = async (req, res) => {
     try {
         const { cedulaCliente, nombreCliente, usernameCliente, passwordCliente, 
                 direccionCliente, telefonoCliente, emailCliente, tipoCliente } = req.body;
@@ -96,7 +96,7 @@ clienteCtl.crearCliente = async (req, res) => {
 };
 
 // Actualizar cliente con encriptación
-clienteCtl.actualizarCliente = async (req, res) => {
+export const actualizarCliente = async (req, res) => {
     try {
         const { id } = req.params;
         const { cedulaCliente, nombreCliente, usernameCliente, 
@@ -147,7 +147,7 @@ clienteCtl.actualizarCliente = async (req, res) => {
 };
 
 // Eliminar (desactivar) cliente
-clienteCtl.eliminarCliente = async (req, res) => {
+export const eliminarCliente = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -165,5 +165,3 @@ clienteCtl.eliminarCliente = async (req, res) => {
         return res.status(500).json({ message: 'Error al desactivar', error: error.message });
     }
 };
-
-module.exports = clienteCtl;

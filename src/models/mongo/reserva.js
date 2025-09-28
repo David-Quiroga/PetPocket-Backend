@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const reservaSchema = new Schema({
@@ -25,4 +25,4 @@ const reservaSchema = new Schema({
 }, { timestamps: true });
 
 const Reserva = mongoose.model('Reserva', reservaSchema);
-module.exports = Reserva;
+export default Reserva;

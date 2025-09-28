@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const pageSchema = new mongoose.Schema({
     visionPage: String,
@@ -15,4 +15,4 @@ const pageSchema = new mongoose.Schema({
 
 const page = mongoose.model('pages', pageSchema)
 
-module.exports = page
+export default page

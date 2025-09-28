@@ -12,5 +12,5 @@
             comment: 'Tabla de Tipos de Mascotas'
         });
     }
-    module.exports = tipoMascota;
+    export default tipoMascota;
     

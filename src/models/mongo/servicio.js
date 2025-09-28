@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const servicioSchema = new Schema({
@@ -18,4 +18,4 @@ const servicioSchema = new Schema({
 }, { timestamps: true });                             // createdAt, updatedAt
 
 const Servicio = mongoose.model('Servicio', servicioSchema);
-module.exports = Servicio;
+export default Servicio;

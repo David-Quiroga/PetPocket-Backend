@@ -18,5 +18,5 @@
            comment: 'Tabla de Productos'
        });
    }
-   module.exports = producto;
+   export default producto;
    

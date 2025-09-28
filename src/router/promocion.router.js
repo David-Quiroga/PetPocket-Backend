@@ -1,8 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const { body, param, query } = require('express-validator');
-
-const { 
+import express from 'express';
+import { body, param, query } from 'express-validator';
+import { 
     mostrarPromociones,
     crearPromocion,
     actualizarPromocion,
@@ -13,7 +11,10 @@ const {
     obtenerPromocionesProximasAExpirar,
     cambiarEstadoPromocion,
     obtenerEstadisticas
-} = require('../controller/promocion.controller');
+} from '../controller/promocion.controller.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear promoción
 const validacionCrearPromocion = [
@@ -141,4 +142,4 @@ router.put('/cambiar-estado/:idPromocion', validacionCambiarEstado, cambiarEstad
 // Eliminar (desactivar) promoción
 router.delete('/eliminar/:idPromocion', validacionEliminarPromocion, eliminarPromocion);
 
-module.exports = router;
+export default router;

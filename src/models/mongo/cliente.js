@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 
 const clienteSchema = new mongoose.Schema({
     direccionCliente:String,
@@ -10,4 +10,4 @@ const clienteSchema = new mongoose.Schema({
 
 const cliente = mongoose.model('clientes', clienteSchema)
 
-module.exports = cliente 
+export default cliente 

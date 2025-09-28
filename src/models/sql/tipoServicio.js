@@ -12,5 +12,5 @@
             comment: 'Tabla de Tipos de Servicios'
         });
     }
-    module.exports = tipoServicio;
+    export default tipoServicio;
     

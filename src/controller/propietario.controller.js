@@ -1,8 +1,7 @@
-const propietarioCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +14,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todos los propietarios con sus mascotas
-propietarioCtl.mostrarPropietarios = async (req, res) => {
+export const mostrarPropietarios = async (req, res) => {
     try {
         const [listaPropietarios] = await sql.promise().query(`
             SELECT p.*, COUNT(m.idMascota) as cantidadMascotas
@@ -57,7 +56,7 @@ propietarioCtl.mostrarPropietarios = async (req, res) => {
 };
 
 // Crear nuevo propietario
-propietarioCtl.crearPropietario = async (req, res) => {
+export const crearPropietario = async (req, res) => {
     try {
         const { 
             nombrePropietario, cedulaPropietario, emailPropietario,
@@ -101,7 +100,7 @@ propietarioCtl.crearPropietario = async (req, res) => {
 };
 
 // Actualizar propietario
-propietarioCtl.actualizarPropietario = async (req, res) => {
+export const actualizarPropietario = async (req, res) => {
     try {
         const { idPropietario } = req.params; // Suponiendo que el ID se pasa como parámetro en la URL
         const { 
@@ -145,7 +144,7 @@ propietarioCtl.actualizarPropietario = async (req, res) => {
 };
 
 // Eliminar propietario (marcar como inactivo)
-propietarioCtl.eliminarPropietario = async (req, res) => {
+export const eliminarPropietario = async (req, res) => {
     try {
         const { idPropietario } = req.params; // Suponiendo que el ID se pasa como parámetro en la URL
 
@@ -173,7 +172,5 @@ propietarioCtl.eliminarPropietario = async (req, res) => {
         });
     }
 }
-
-module.exports = propietarioCtl;
 
 

@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { body } = require('express-validator');
+import express from 'express';
+import { body } from 'express-validator';
 
-const { 
+import { 
     mostrarUsuarios,
     crearUsuario,
     actualizarUsuario,
@@ -13,10 +12,13 @@ const {
     removerRol,
     cambiarEstado,
     obtenerEstadisticas
-} = require('../controller/usuario.controller');
+} from '../controller/usuario.controller.js';
+
+
+const router = express.Router();
 
 // Middleware de autenticación (opcional, descomenta si lo necesitas)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
 
 // Validaciones para crear usuario
 const validacionCrearUsuario = [
@@ -145,4 +147,4 @@ router.put('/cambiar-estado/:id', validacionEstado, cambiarEstado);
 // Eliminar (desactivar) usuario
 router.delete('/eliminar/:id', eliminarUsuario);
 
-module.exports = router;
+export default router;

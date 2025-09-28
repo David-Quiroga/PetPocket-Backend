@@ -15,5 +15,5 @@
             comment: 'Tabla de Notificaciones'
         });
     }
-    module.exports = notificacion;
+    export default notificacion;
     

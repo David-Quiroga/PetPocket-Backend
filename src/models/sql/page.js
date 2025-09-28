@@ -16,4 +16,4 @@ const page = (sequelize, type) =>{
     })
 }
 
-module.exports = page
+export default page

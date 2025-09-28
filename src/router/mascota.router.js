@@ -1,15 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarMascotas, 
     crearMascota, 
     actualizarMascota
-} = require('../controller/mascota.controller');
+} from '../controller/mascota.controller.js';
+
+
+
+const router = express.Router();
 
 // Middleware de autenticación (opcional)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
 
 // Validaciones para crear mascota
 const validacionCrearMascota = [
@@ -120,4 +123,4 @@ router.delete('/eliminar/:id', (req, res) => {
     res.json({ message: 'Endpoint para eliminar mascota - Por implementar' });
 });
 
-module.exports = router;
+export default router;

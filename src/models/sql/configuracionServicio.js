@@ -14,5 +14,5 @@
             comment: 'Tabla de Configuraciones de Servicio'
         });
     }
-    module.exports = configuracionServicio;
+    export default configuracionServicio;
     

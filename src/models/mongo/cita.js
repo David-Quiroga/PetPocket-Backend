@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const citaSchema = new Schema({
@@ -23,4 +23,4 @@ const citaSchema = new Schema({
 }, { timestamps: true });
 
 const Cita = mongoose.model('Cita', citaSchema);
-module.exports = Cita;
+export default Cita;

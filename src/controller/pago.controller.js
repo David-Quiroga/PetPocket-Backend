@@ -1,7 +1,6 @@
-const pagoCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -14,7 +13,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todos los pagos con información completa
-pagoCtl.mostrarPagos = async (req, res) => {
+export const mostrarPagos = async (req, res) => {
     try {
         const [listaPagos] = await sql.promise().query(`
             SELECT p.*, 
@@ -44,7 +43,7 @@ pagoCtl.mostrarPagos = async (req, res) => {
 };
 
 // Crear nuevo pago
-pagoCtl.crearPago = async (req, res) => {
+export const crearPago = async (req, res) => {
     try {
         const { idCita, monto, metodoPago } = req.body;
 
@@ -85,7 +84,7 @@ pagoCtl.crearPago = async (req, res) => {
 };
 
 // Actualizar pago
-pagoCtl.actualizarPago = async (req, res) => {
+export const actualizarPago = async (req, res) => {
     try {
         const { idPago } = req.params;
         const { monto, metodoPago, estadoPago } = req.body;
@@ -113,7 +112,7 @@ pagoCtl.actualizarPago = async (req, res) => {
 };
 
 // Obtener pagos por cliente
-pagoCtl.obtenerPagosPorCliente = async (req, res) => {
+export const obtenerPagosPorCliente = async (req, res) => {
     try {
         const { idCliente } = req.params;
 
@@ -142,7 +141,7 @@ pagoCtl.obtenerPagosPorCliente = async (req, res) => {
 };
 
 // Obtener estadísticas de pagos
-pagoCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticas] = await sql.promise().query(`
             SELECT 
@@ -178,5 +177,3 @@ pagoCtl.obtenerEstadisticas = async (req, res) => {
         return res.status(500).json({ message: 'Error al obtener estadísticas', error: error.message });
     }
 };
-
-module.exports = pagoCtl;

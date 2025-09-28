@@ -16,5 +16,5 @@
             comment: 'Tabla de Pagos'
         });
     }
-    module.exports = pago;
+    export default pago;
     
