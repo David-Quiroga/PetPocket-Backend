@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
+import express from "express";
+import { mostrarPagina, mandarPagina } from '../controller/pagina.controller.js';
 
-const { mostrarPagina, mandarPagina } = require('../controller/pagina.controller')
+const router = express.Router();
 
 router.get('/lista', mostrarPagina)
 router.post('/crear', mandarPagina)
 
-module.exports = router
+export default router

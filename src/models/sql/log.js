@@ -13,5 +13,5 @@
             comment: 'Tabla de Logs'
         });
     }
-    module.exports = log;
+    export default log;
     

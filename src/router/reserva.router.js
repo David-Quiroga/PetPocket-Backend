@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarReservas,
     crearReserva,
     actualizarReserva,
@@ -15,7 +14,10 @@ const {
     obtenerReservasPorFecha,
     obtenerEstadisticas,
     eliminarReserva
-} = require('../controller/reserva.controller');
+} from '../controller/reserva.controller.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear reserva
 const validacionCrearReserva = [
@@ -200,4 +202,4 @@ router.put('/calificar/:idReserva', validacionCalificarReserva, calificarReserva
 // Eliminar reserva
 router.delete('/eliminar/:idReserva', validacionParametroReserva, eliminarReserva);
 
-module.exports = router;
+export default router;

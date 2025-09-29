@@ -16,5 +16,5 @@
            comment: 'Tabla de Servicios'
        });
    }
-   module.exports = servicio;
+   export default servicio;
    

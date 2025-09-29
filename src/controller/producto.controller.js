@@ -1,8 +1,7 @@
-const productoCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -14,7 +13,7 @@ const descifrarSeguro = (dato) => {
     }
 };
 // Mostrar todos los productos activos
-productoCtl.mostrarProductos = async (req, res) => {
+export const mostrarProductos = async (req, res) => {
     try {
         const [listaProductos] = await sql.promise().query(`
             SELECT * FROM productos 
@@ -56,7 +55,7 @@ productoCtl.mostrarProductos = async (req, res) => {
 };
 
 // Crear nuevo producto
-productoCtl.crearProducto = async (req, res) => {
+export const crearProducto = async (req, res) => {
     try {
         const { 
             nombreProducto, descripcionProducto, precioProducto, stock, categoria,
@@ -106,7 +105,7 @@ productoCtl.crearProducto = async (req, res) => {
 };
 
 // Actualizar stock de producto
-productoCtl.actualizarStock = async (req, res) => {
+export const actualizarStock = async (req, res) => {
     try {
         const { id } = req.params;
         const { nuevoStock, operacion } = req.body; // operacion: 'suma', 'resta', 'set'
@@ -137,7 +136,7 @@ productoCtl.actualizarStock = async (req, res) => {
 };
 
 // Actualizar producto
-productoCtl.actualizarProducto = async (req, res) => {
+export const actualizarProducto = async (req, res) => {
     try {
         const { idProducto } = req.params;
         const {
@@ -190,7 +189,7 @@ productoCtl.actualizarProducto = async (req, res) => {
     }
 };
 // Eliminar producto (marcar como inactivo)
-productoCtl.eliminarProducto = async (req, res) => {
+export const eliminarProducto = async (req, res) => {
     try {
         const { idProducto } = req.params;
 
@@ -219,4 +218,3 @@ productoCtl.eliminarProducto = async (req, res) => {
     }
 }; 
 
-module.exports = productoCtl;

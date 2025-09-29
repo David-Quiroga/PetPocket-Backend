@@ -14,5 +14,5 @@
             comment: 'Tabla de Auditorias'
         });
     }
-    module.exports = auditoria;
+    export default auditoria;
     

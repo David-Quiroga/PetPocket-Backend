@@ -14,5 +14,5 @@
             comment: 'Tabla de Historial de Pagos'
         });
     }
-    module.exports = historialPago;
+    export default historialPago;
     

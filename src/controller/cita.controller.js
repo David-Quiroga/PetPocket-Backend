@@ -1,8 +1,7 @@
-const citaCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +14,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todas las citas con información completa
-citaCtl.mostrarCitas = async (req, res) => {
+export const mostrarCitas = async (req, res) => {
     try {
         const [listaCitas] = await sql.promise().query(`
             SELECT c.*, 
@@ -74,7 +73,7 @@ citaCtl.mostrarCitas = async (req, res) => {
 };
 
 // Crear nueva cita
-citaCtl.crearCita = async (req, res) => {
+export const crearCita = async (req, res) => {
     try {
         const { 
             idCliente, idMascota, idServicio, fecha, hora, usuarioIdUser,
@@ -124,7 +123,7 @@ citaCtl.crearCita = async (req, res) => {
 };
 
 // Actualizar cita
-citaCtl.actualizarCita = async (req, res) => {
+export const actualizarCita = async (req, res) => {
     try {
         const { idCita } = req.params; // Suponiendo que el ID se pasa como parámetro en la URL
         const { 
@@ -176,7 +175,7 @@ citaCtl.actualizarCita = async (req, res) => {
 };
 
 // Eliminar cita
-citaCtl.eliminarCita = async (req, res) => {
+export const eliminarCita = async (req, res) => {
     try {
         const { idCita } = req.params; // Suponiendo que el ID se pasa como parámetro en la URL
 
@@ -205,4 +204,3 @@ citaCtl.eliminarCita = async (req, res) => {
     }
 };
 
-module.exports = citaCtl;

@@ -1,8 +1,7 @@
-const feedbackCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +14,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todos los feedbacks
-feedbackCtl.mostrarFeedbacks = async (req, res) => {
+export const mostrarFeedbacks = async (req, res) => {
     try {
         const [listaFeedbacks] = await sql.promise().query(`
             SELECT f.*, c.nombreCliente, c.cedulaCliente
@@ -53,7 +52,7 @@ feedbackCtl.mostrarFeedbacks = async (req, res) => {
 };
 
 // Crear nuevo feedback
-feedbackCtl.crearFeedback = async (req, res) => {
+export const crearFeedback = async (req, res) => {
     try {
         const { 
             idCliente, comentario, calificacion, tipo, anonimo 
@@ -106,7 +105,7 @@ feedbackCtl.crearFeedback = async (req, res) => {
 };
 
 // Responder a un feedback
-feedbackCtl.responderFeedback = async (req, res) => {
+export const responderFeedback = async (req, res) => {
     try {
         const { idFeedback } = req.params;
         const { respuesta } = req.body;
@@ -140,7 +139,7 @@ feedbackCtl.responderFeedback = async (req, res) => {
 };
 
 // Obtener feedbacks por cliente
-feedbackCtl.obtenerFeedbacksPorCliente = async (req, res) => {
+export const obtenerFeedbacksPorCliente = async (req, res) => {
     try {
         const { idCliente } = req.params;
 
@@ -180,7 +179,7 @@ feedbackCtl.obtenerFeedbacksPorCliente = async (req, res) => {
 };
 
 // Obtener feedbacks por calificación
-feedbackCtl.obtenerFeedbacksPorCalificacion = async (req, res) => {
+export const obtenerFeedbacksPorCalificacion = async (req, res) => {
     try {
         const { calificacion } = req.params;
 
@@ -229,7 +228,7 @@ feedbackCtl.obtenerFeedbacksPorCalificacion = async (req, res) => {
 };
 
 // Obtener estadísticas de feedback
-feedbackCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticasSQL] = await sql.promise().query(`
             SELECT 
@@ -287,7 +286,7 @@ feedbackCtl.obtenerEstadisticas = async (req, res) => {
 };
 
 // Obtener feedbacks pendientes de responder
-feedbackCtl.obtenerFeedbacksPendientes = async (req, res) => {
+export const obtenerFeedbacksPendientes = async (req, res) => {
     try {
         // Buscar en MongoDB los no respondidos
         const feedbacksPendientes = await mongo.feedBackModel.find({ 
@@ -331,5 +330,3 @@ feedbackCtl.obtenerFeedbacksPendientes = async (req, res) => {
         return res.status(500).json({ message: 'Error al obtener feedbacks pendientes', error: error.message });
     }
 };
-
-module.exports = feedbackCtl;

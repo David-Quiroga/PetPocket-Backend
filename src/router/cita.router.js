@@ -1,16 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
-
-const { 
+import express from 'express';
+import { body, param } from 'express-validator';
+import { 
     mostrarCitas, 
     crearCita, 
     actualizarCita,
     eliminarCita
-} = require('../controller/cita.controller');
+} from '../controller/cita.controller.js';
 
 // Middleware de autenticación (opcional)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
+
+const router = express.Router();
 
 // Validaciones para crear cita
 const validacionCrearCita = [
@@ -187,4 +187,4 @@ router.put('/reprogramar/:idCita', (req, res) => {
     res.json({ message: 'Endpoint para reprogramar cita' });
 });
 
-module.exports = router;
+export default router;

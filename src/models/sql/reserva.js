@@ -15,5 +15,5 @@
             comment: 'Tabla de Reservas'
         });
     }
-    module.exports = reserva;
+    export default reserva;
     

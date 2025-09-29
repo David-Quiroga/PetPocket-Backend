@@ -1,34 +1,32 @@
-const passport = require('passport')
-const orm = require('../Database/dataBase.orm')
-const sql = require('../Database/dataBase.sql')
-const FormData = require('form-data');
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
-const { descifrarDatos, cifrarDatos } = require('../lib/encrypDates.js');
-const { validationResult } = require('express-validator');
-const indexCtl = {}
+import passport from 'passport'
+import orm from '../Database/dataBase.orm.js'
+import sql from '../Database/dataBase.sql.js'
+import FormData from 'form-data';
+import fs from 'fs';
+import path from 'path';
+import axios from 'axios';
+import { descifrarDatos, cifrarDatos } from '../lib/encrypDates.js';
+import { validationResult } from 'express-validator';
 
-indexCtl.mostrarMensaje = async(req, res)=>{
+export const mostrarMensaje = async(req, res)=>{
      res.json('hola mundo');
 }
 
-
-indexCtl.registro = passport.authenticate("local.Signup", {
+export const registro = passport.authenticate("local.Signup", {
     successRedirect: "/closeSection",
     failureRedirect: "/registro",
     failureFlash: true,
     failureMessage: true
 })
 
-indexCtl.login = passport.authenticate("local.Signup", {
+export const login = passport.authenticate("local.Signup", {
     successRedirect: "/ruta",
     failureRedirect: "/registro",
     failureFlash: true,
     failureMessage: true
 })
 
-indexCtl.CerrarSesion = (req, res, next) => {
+export const CerrarSesion = (req, res, next) => {
     req.logout(function (err) {
         if (err) {
             return next(err);
@@ -37,6 +35,3 @@ indexCtl.CerrarSesion = (req, res, next) => {
         res.redirect("/");
     });
 };
-
-
-module.exports = indexCtl

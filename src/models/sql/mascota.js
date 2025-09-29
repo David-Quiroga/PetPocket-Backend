@@ -18,4 +18,4 @@ const mascota = (sequelize, type) => {
         comment: 'Tabla de Mascotas'
     });
 }
-module.exports = mascota;
+export default mascota;

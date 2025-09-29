@@ -1,14 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarPagos, 
     crearPago, 
     actualizarPago,
     obtenerPagosPorCliente,
     obtenerEstadisticas
-} = require('../controller/pago.controller');
+} from '../controller/pago.controller.js';
+
+const router = express.Router();
 
 // Validaciones para crear pago
 const validacionCrearPago = [
@@ -78,4 +79,4 @@ router.post('/crear', validacionCrearPago, crearPago);
 // Actualizar pago existente
 router.put('/actualizar/:idPago', validacionActualizarPago, actualizarPago);
 
-module.exports = router;
+export default router;

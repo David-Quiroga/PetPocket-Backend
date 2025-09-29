@@ -1,10 +1,10 @@
-const { createPool } = require("mysql2");
-const { promisify } = require("util");
-const dotenv = require('dotenv');
+import { createPool } from "mysql2";
+import { promisify } from "util";
+import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE, MYSQLPORT } = require("../keys");
+import { MYSQLHOST, MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE, MYSQLPORT } from "../keys.js";
 
 // Crear el pool de conexión a la base de datos
 const pool = createPool({
@@ -42,4 +42,4 @@ pool.getConnection((err, connection) => {
 // Promisify el método query para usar async/await
 pool.query = promisify(pool.query);
 
-module.exports = pool;
+export default pool;

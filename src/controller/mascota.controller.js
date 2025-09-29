@@ -1,8 +1,7 @@
-const mascotaCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +14,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todas las mascotas activas con datos híbridos
-mascotaCtl.mostrarMascotas = async (req, res) => {
+export const mostrarMascotas = async (req, res) => {
     try {
         const [listaMascotas] = await sql.promise().query(`
             SELECT m.*, p.nombrePropietario, p.emailPropietario 
@@ -64,7 +63,7 @@ mascotaCtl.mostrarMascotas = async (req, res) => {
 };
 
 // Crear nueva mascota
-mascotaCtl.crearMascota = async (req, res) => {
+export const crearMascota = async (req, res) => {
     try {
         const { 
             nombreMascota, especie, raza, edad, sexo, idPropietario,
@@ -116,7 +115,7 @@ mascotaCtl.crearMascota = async (req, res) => {
 };
 
 // Actualizar mascota
-mascotaCtl.actualizarMascota = async (req, res) => {
+export const actualizarMascota = async (req, res) => {
     try {
         const { id } = req.params;
         const { 
@@ -171,4 +170,3 @@ mascotaCtl.actualizarMascota = async (req, res) => {
     }
 };
 
-module.exports = mascotaCtl;

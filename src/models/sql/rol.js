@@ -16,4 +16,4 @@ const rol = (sequelize, type) =>{
     })
 }
 
-module.exports = rol;
+export default rol;

@@ -1,16 +1,18 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarServicios, 
     crearServicio, 
     actualizarServicio,
     eliminarServicio
-} = require('../controller/servicio.controller');
+} from '../controller/servicio.controller.js';
 
 // Middleware de autenticación (opcional)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear servicio
 const validacionCrearServicio = [
@@ -137,4 +139,4 @@ router.put('/cambiar-estado/:idServicio', (req, res) => {
     res.json({ message: 'Endpoint para cambiar estado de servicio' });
 });
 
-module.exports = router;
+export default router;

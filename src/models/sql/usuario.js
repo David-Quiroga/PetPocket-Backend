@@ -19,4 +19,4 @@ const usuario = (sequelize, type) =>{
     })
 }
 
-module.exports = usuario;
+export default usuario;

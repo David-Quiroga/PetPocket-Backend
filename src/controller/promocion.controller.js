@@ -1,7 +1,6 @@
-const promocionCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -14,7 +13,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todas las promociones
-promocionCtl.mostrarPromociones = async (req, res) => {
+export const mostrarPromociones = async (req, res) => {
     try {
         const [listaPromociones] = await sql.promise().query(`
             SELECT * FROM promociones 
@@ -34,7 +33,7 @@ promocionCtl.mostrarPromociones = async (req, res) => {
 };
 
 // Crear nueva promoción
-promocionCtl.crearPromocion = async (req, res) => {
+export const crearPromocion = async (req, res) => {
     try {
         const { descripcion, fechaInicio, fechaFin, descuento, tipoDescuento, codigoPromocion } = req.body;
 
@@ -73,7 +72,7 @@ promocionCtl.crearPromocion = async (req, res) => {
 };
 
 // Actualizar promoción
-promocionCtl.actualizarPromocion = async (req, res) => {
+export const actualizarPromocion = async (req, res) => {
     try {
         const { idPromocion } = req.params;
         const { descripcion, fechaInicio, fechaFin, descuento, tipoDescuento, codigoPromocion, estadoPromocion } = req.body;
@@ -120,7 +119,7 @@ promocionCtl.actualizarPromocion = async (req, res) => {
 };
 
 // Eliminar promoción
-promocionCtl.eliminarPromocion = async (req, res) => {
+export const eliminarPromocion = async (req, res) => {
     try {
         const { idPromocion } = req.params;
 
@@ -141,7 +140,7 @@ promocionCtl.eliminarPromocion = async (req, res) => {
 };
 
 // Obtener promociones activas
-promocionCtl.obtenerPromocionesActivas = async (req, res) => {
+export const obtenerPromocionesActivas = async (req, res) => {
     try {
         const [promocionesActivas] = await sql.promise().query(`
             SELECT * FROM promociones 
@@ -164,7 +163,7 @@ promocionCtl.obtenerPromocionesActivas = async (req, res) => {
 };
 
 // Obtener promociones por código
-promocionCtl.obtenerPromocionPorCodigo = async (req, res) => {
+export const obtenerPromocionPorCodigo = async (req, res) => {
     try {
         const { codigo } = req.params;
 
@@ -193,7 +192,7 @@ promocionCtl.obtenerPromocionPorCodigo = async (req, res) => {
 };
 
 // Validar código de promoción
-promocionCtl.validarCodigoPromocion = async (req, res) => {
+export const validarCodigoPromocion = async (req, res) => {
     try {
         const { codigo } = req.params;
 
@@ -227,7 +226,7 @@ promocionCtl.validarCodigoPromocion = async (req, res) => {
 };
 
 // Obtener promociones próximas a expirar
-promocionCtl.obtenerPromocionesProximasAExpirar = async (req, res) => {
+export const obtenerPromocionesProximasAExpirar = async (req, res) => {
     try {
         const { dias = 7 } = req.query;
 
@@ -252,7 +251,7 @@ promocionCtl.obtenerPromocionesProximasAExpirar = async (req, res) => {
 };
 
 // Cambiar estado de promoción
-promocionCtl.cambiarEstadoPromocion = async (req, res) => {
+export const cambiarEstadoPromocion = async (req, res) => {
     try {
         const { idPromocion } = req.params;
         const { estado } = req.body;
@@ -278,7 +277,7 @@ promocionCtl.cambiarEstadoPromocion = async (req, res) => {
 };
 
 // Obtener estadísticas de promociones
-promocionCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticas] = await sql.promise().query(`
             SELECT 
@@ -313,7 +312,7 @@ promocionCtl.obtenerEstadisticas = async (req, res) => {
 };
 
 // Actualizar promociones expiradas automáticamente
-promocionCtl.actualizarPromocionesExpiradas = async () => {
+export const actualizarPromocionesExpiradas = async () => {
     try {
         await sql.promise().query(`
             UPDATE promociones SET 
@@ -328,5 +327,3 @@ promocionCtl.actualizarPromocionesExpiradas = async () => {
         console.error('Error al actualizar promociones expiradas:', error);
     }
 };
-
-module.exports = promocionCtl;

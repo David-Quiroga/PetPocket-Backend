@@ -16,5 +16,5 @@
             comment: 'Tabla de Promociones'
         });
     }
-    module.exports = promocion;
+    export default promocion;
     

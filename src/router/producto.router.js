@@ -1,17 +1,19 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarProductos, 
     crearProducto, 
     actualizarProducto,
     eliminarProducto,
     actualizarStock
-} = require('../controller/producto.controller');
+} from '../controller/producto.controller.js';
 
 // Middleware de autenticación (opcional)
-// const isLoggedIn = require('../lib/auth');
+// import isLoggedIn from '../lib/auth.js';
+
+const router = express.Router();
+
 
 // Validaciones para crear producto
 const validacionCrearProducto = [
@@ -171,4 +173,4 @@ router.put('/cambiar-estado/:idProducto', (req, res) => {
     res.json({ message: 'Endpoint para cambiar estado de producto' });
 });
 
-module.exports = router;
+export default router;

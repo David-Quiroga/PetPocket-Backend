@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const { body, param } = require('express-validator');
+import express from 'express';
+import { body, param } from 'express-validator';
 
-const { 
+import { 
     mostrarNotificaciones,
     crearNotificacion,
     obtenerNotificacionesPorUsuario,
@@ -11,7 +10,10 @@ const {
     eliminarNotificacion,
     crearNotificacionMasiva,
     obtenerEstadisticas
-} = require('../controller/notificacion.controller');
+} from '../controller/notificacion.controller.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear notificación
 const validacionCrearNotificacion = [
@@ -98,4 +100,4 @@ router.put('/marcar-todas-leidas/:idUsuario', validacionParametroUsuario, marcar
 // Eliminar notificación
 router.delete('/eliminar/:idNotificacion', validacionParametroId, eliminarNotificacion);
 
-module.exports = router;
+export default router;

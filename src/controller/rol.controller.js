@@ -1,7 +1,6 @@
-const rolCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -14,7 +13,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todos los roles activos
-rolCtl.mostrarRoles = async (req, res) => {
+export const mostrarRoles = async (req, res) => {
     try {
         const [listaRoles] = await sql.promise().query(`
             SELECT r.*, COUNT(dr.userIdUser) as cantidadUsuarios
@@ -41,7 +40,7 @@ rolCtl.mostrarRoles = async (req, res) => {
 };
 
 // Crear nuevo rol
-rolCtl.crearRol = async (req, res) => {
+export const crearRol = async (req, res) => {
     try {
         const { nameRol, descriptionRol } = req.body;
 
@@ -83,7 +82,7 @@ rolCtl.crearRol = async (req, res) => {
 };
 
 // Actualizar rol
-rolCtl.actualizarRol = async (req, res) => {
+export const actualizarRol = async (req, res) => {
     try {
         const { id } = req.params;
         const { nameRol, descriptionRol } = req.body;
@@ -137,7 +136,7 @@ rolCtl.actualizarRol = async (req, res) => {
 };
 
 // Eliminar (desactivar) rol
-rolCtl.eliminarRol = async (req, res) => {
+export const eliminarRol = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -172,7 +171,7 @@ rolCtl.eliminarRol = async (req, res) => {
 };
 
 // Obtener rol por ID con usuarios asignados
-rolCtl.obtenerRol = async (req, res) => {
+export const obtenerRol = async (req, res) => {
     try {
         const { id } = req.params;
         
@@ -214,7 +213,7 @@ rolCtl.obtenerRol = async (req, res) => {
 };
 
 // Buscar roles por nombre
-rolCtl.buscarRoles = async (req, res) => {
+export const buscarRoles = async (req, res) => {
     try {
         const { q } = req.query;
 
@@ -250,7 +249,7 @@ rolCtl.buscarRoles = async (req, res) => {
 };
 
 // Cambiar estado de rol
-rolCtl.cambiarEstado = async (req, res) => {
+export const cambiarEstado = async (req, res) => {
     try {
         const { id } = req.params;
         const { estado } = req.body;
@@ -292,7 +291,7 @@ rolCtl.cambiarEstado = async (req, res) => {
 };
 
 // Obtener estadísticas de roles
-rolCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticas] = await sql.promise().query(`
             SELECT 
@@ -328,7 +327,7 @@ rolCtl.obtenerEstadisticas = async (req, res) => {
 };
 
 // Crear roles por defecto del sistema
-rolCtl.crearRolesPorDefecto = async (req, res) => {
+export const crearRolesPorDefecto = async (req, res) => {
     try {
         const rolesPorDefecto = [
             { 
@@ -386,4 +385,3 @@ rolCtl.crearRolesPorDefecto = async (req, res) => {
     }
 };
 
-module.exports = rolCtl;

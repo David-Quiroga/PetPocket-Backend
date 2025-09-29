@@ -1,7 +1,6 @@
-const notificacionCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -14,7 +13,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todas las notificaciones
-notificacionCtl.mostrarNotificaciones = async (req, res) => {
+export const mostrarNotificaciones = async (req, res) => {
     try {
         const [listaNotificaciones] = await sql.promise().query(`
             SELECT n.*, u.nameUsers, u.emailUser
@@ -37,7 +36,7 @@ notificacionCtl.mostrarNotificaciones = async (req, res) => {
 };
 
 // Crear nueva notificación
-notificacionCtl.crearNotificacion = async (req, res) => {
+export const crearNotificacion = async (req, res) => {
     try {
         const { idUsuario, mensaje, tipo } = req.body;
 
@@ -78,7 +77,7 @@ notificacionCtl.crearNotificacion = async (req, res) => {
 };
 
 // Obtener notificaciones por usuario
-notificacionCtl.obtenerNotificacionesPorUsuario = async (req, res) => {
+export const obtenerNotificacionesPorUsuario = async (req, res) => {
     try {
         const { idUsuario } = req.params;
         const { estado } = req.query;
@@ -114,7 +113,7 @@ notificacionCtl.obtenerNotificacionesPorUsuario = async (req, res) => {
 };
 
 // Marcar notificación como leída
-notificacionCtl.marcarComoLeida = async (req, res) => {
+export const marcarComoLeida = async (req, res) => {
     try {
         const { idNotificacion } = req.params;
 
@@ -135,7 +134,7 @@ notificacionCtl.marcarComoLeida = async (req, res) => {
 };
 
 // Marcar todas las notificaciones de un usuario como leídas
-notificacionCtl.marcarTodasComoLeidas = async (req, res) => {
+export const marcarTodasComoLeidas = async (req, res) => {
     try {
         const { idUsuario } = req.params;
 
@@ -156,7 +155,7 @@ notificacionCtl.marcarTodasComoLeidas = async (req, res) => {
 };
 
 // Eliminar notificación
-notificacionCtl.eliminarNotificacion = async (req, res) => {
+export const eliminarNotificacion = async (req, res) => {
     try {
         const { idNotificacion } = req.params;
 
@@ -174,7 +173,7 @@ notificacionCtl.eliminarNotificacion = async (req, res) => {
 };
 
 // Crear notificaciones masivas
-notificacionCtl.crearNotificacionMasiva = async (req, res) => {
+export const crearNotificacionMasiva = async (req, res) => {
     try {
         const { mensaje, tipo, usuarios } = req.body;
 
@@ -213,7 +212,7 @@ notificacionCtl.crearNotificacionMasiva = async (req, res) => {
 };
 
 // Obtener estadísticas de notificaciones
-notificacionCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticas] = await sql.promise().query(`
             SELECT 
@@ -230,5 +229,3 @@ notificacionCtl.obtenerEstadisticas = async (req, res) => {
         return res.status(500).json({ message: 'Error al obtener estadísticas', error: error.message });
     }
 };
-
-module.exports = notificacionCtl;

@@ -1,15 +1,14 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const fs = require('fs');
-const path = require('path');
-const axios = require('axios');
-const FormData = require('form-data');
-const { cifrarDatos, descifrarDatos } = require('./encrypDates');
-
-//archvios de coneccion
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const mongo = require('../Database/dataBaseMongose')
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import fs from 'fs';
+import path from 'path';
+import axios from 'axios';
+import FormData from 'form-data';
+import { cifrarDatos, descifrarDatos } from './encrypDates.js';
+//archvios de conexion
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import mongo from '../Database/dataBaseMongose.js';
 
 const descifrarSeguro = (dato) => {
     try {
@@ -396,4 +395,4 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-module.exports = passport;
+export default passport;

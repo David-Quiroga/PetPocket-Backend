@@ -1,8 +1,7 @@
-const usuarioCtl = {};
-const orm = require('../Database/dataBase.orm');
-const sql = require('../Database/dataBase.sql');
-const { cifrarDatos, descifrarDatos } = require('../lib/encrypDates');
-const bcrypt = require('bcrypt');
+import orm from '../Database/dataBase.orm.js';
+import sql from '../Database/dataBase.sql.js';
+import { cifrarDatos, descifrarDatos } from '../lib/encrypDates.js';
+import bcrypt from 'bcrypt';
 
 // Función para descifrar de forma segura
 const descifrarSeguro = (dato) => {
@@ -15,7 +14,7 @@ const descifrarSeguro = (dato) => {
 };
 
 // Mostrar todos los usuarios activos con sus roles
-usuarioCtl.mostrarUsuarios = async (req, res) => {
+export const mostrarUsuarios = async (req, res) => {
     try {
         const [listaUsuarios] = await sql.promise().query(`
             SELECT u.*, GROUP_CONCAT(DISTINCT r.nameRol SEPARATOR ', ') as roles
@@ -46,7 +45,7 @@ usuarioCtl.mostrarUsuarios = async (req, res) => {
 };
 
 // Crear nuevo usuario
-usuarioCtl.crearUsuario = async (req, res) => {
+export const crearUsuario = async (req, res) => {
     try {
         const { nameUsers, phoneUser, emailUser, userName, passwordUser, roles } = req.body;
 
@@ -105,7 +104,7 @@ usuarioCtl.crearUsuario = async (req, res) => {
 };
 
 // Actualizar usuario
-usuarioCtl.actualizarUsuario = async (req, res) => {
+export const actualizarUsuario = async (req, res) => {
     try {
         const { id } = req.params;
         const { nameUsers, phoneUser, emailUser, userName, passwordUser, roles } = req.body;
@@ -191,7 +190,7 @@ usuarioCtl.actualizarUsuario = async (req, res) => {
 };
 
 // Eliminar (desactivar) usuario
-usuarioCtl.eliminarUsuario = async (req, res) => {
+export const eliminarUsuario = async (req, res) => {
     try {
         const { id } = req.params;
 
@@ -222,7 +221,7 @@ usuarioCtl.eliminarUsuario = async (req, res) => {
 };
 
 // Obtener usuario por ID con sus roles
-usuarioCtl.obtenerUsuario = async (req, res) => {
+export const obtenerUsuario = async (req, res) => {
     try {
         const { id } = req.params;
         
@@ -267,7 +266,7 @@ usuarioCtl.obtenerUsuario = async (req, res) => {
 };
 
 // Buscar usuarios por término
-usuarioCtl.buscarUsuarios = async (req, res) => {
+export const buscarUsuarios = async (req, res) => {
     try {
         const { q } = req.query;
 
@@ -307,7 +306,7 @@ usuarioCtl.buscarUsuarios = async (req, res) => {
 };
 
 // Asignar rol a usuario
-usuarioCtl.asignarRol = async (req, res) => {
+export const asignarRol = async (req, res) => {
     try {
         const { usuarioId, rolId } = req.body;
 
@@ -360,7 +359,7 @@ usuarioCtl.asignarRol = async (req, res) => {
 };
 
 // Remover rol de usuario
-usuarioCtl.removerRol = async (req, res) => {
+export const removerRol = async (req, res) => {
     try {
         const { usuarioId, rolId } = req.body;
 
@@ -386,7 +385,7 @@ usuarioCtl.removerRol = async (req, res) => {
 };
 
 // Cambiar estado de usuario
-usuarioCtl.cambiarEstado = async (req, res) => {
+export const cambiarEstado = async (req, res) => {
     try {
         const { id } = req.params;
         const { estado } = req.body;
@@ -412,7 +411,7 @@ usuarioCtl.cambiarEstado = async (req, res) => {
 };
 
 // Obtener estadísticas de usuarios
-usuarioCtl.obtenerEstadisticas = async (req, res) => {
+export const obtenerEstadisticas = async (req, res) => {
     try {
         const [estadisticas] = await sql.promise().query(`
             SELECT 
@@ -447,4 +446,3 @@ usuarioCtl.obtenerEstadisticas = async (req, res) => {
     }
 };
 
-module.exports = usuarioCtl;

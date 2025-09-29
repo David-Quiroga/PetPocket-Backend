@@ -1,15 +1,17 @@
-const express = require('express');
-const router = express.Router();
-const { body, param, query } = require('express-validator');
+import express from 'express';
+import { body, param, query } from 'express-validator';
 
-const { 
+import { 
     mostrarAuditorias,
     crearAuditoria,
     obtenerAuditoriasPorUsuario,
     obtenerAuditoriasPorFecha,
     obtenerEstadisticas,
     limpiarAuditoriasAntiguas
-} = require('../controller/auditoria.controller');
+} from '../controller/auditoria.controller.js';
+
+
+const router = express.Router();
 
 // Validaciones para crear auditoría
 const validacionCrearAuditoria = [
@@ -100,4 +102,4 @@ router.post('/crear', validacionCrearAuditoria, crearAuditoria);
 // Limpiar auditorías antiguas
 router.delete('/limpiar', validacionLimpiarAuditorias, limpiarAuditoriasAntiguas);
 
-module.exports = router;
+export default router;

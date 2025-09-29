@@ -18,5 +18,5 @@
            comment: 'Tabla de Citas'
        });
    }
-   module.exports = cita;
+   export default cita;
    

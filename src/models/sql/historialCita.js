@@ -14,5 +14,5 @@
             comment: 'Tabla de Historial de Citas'
         });
     }
-    module.exports = historialCita;
+    export default historialCita;
     
